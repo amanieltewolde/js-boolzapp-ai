@@ -58,7 +58,7 @@ body {
       justify-content: end;
       padding-left: 10px;
       
-      .chat-messagge {
+      .chat-message {
         
         background-color: rgba(19, 214, 84, 0.573);
       }
@@ -70,7 +70,7 @@ body {
     }
     
   }
-  .chat-messagge {
+  .chat-message {
     padding: 10px;
     border-radius: 7px;
     background-color: rgb(237, 246, 243);
