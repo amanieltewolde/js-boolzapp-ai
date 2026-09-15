@@ -49,6 +49,42 @@ body {
   padding: 2rem;
   background-image: url('../img/background.jpg');
   overflow-y: auto;
+
+  .chat-row {
+    display: flex;
+    margin-bottom: 7px;
+
+    &.sent {
+      justify-content: end;
+      padding-left: 10px;
+      
+      .chat-messagge {
+        
+        background-color: rgba(19, 214, 84, 0.573);
+      }
+      
+    }
+    
+    &.receveid {
+      padding-right: 10px;
+    }
+    
+  }
+  .chat-messagge {
+    padding: 10px;
+    border-radius: 7px;
+    background-color: rgb(237, 246, 243);
+    
+
+    time {
+      display: block;
+      margin-top: 5px;
+      font-size: 10px;
+      font-weight: bold;
+      color: rgba(0, 0, 0, 0.4);
+      text-align: right;
+    }
+  }
 }
 
 /* APP FOOTER */
