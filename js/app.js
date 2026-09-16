@@ -39,26 +39,7 @@ const messages = [
 ];
 
 // rendering messaggi
-    let messageMarkUp ='';
-    
-    messages.forEach( (message) => {
-        
-        // destrutturazione delle proprietà dell'oggetto
-        const {text, type, time} = message;
-        
-        
-        messageMarkUp += 
-        `<div class="chat-row ${type}">
-        <div class="chat-message">
-        <p>${text}</p>
-        <time>${time}</time>
-        </div>
-        </div>`
-        
-        
-    })
-    
-    chatBoxEl.innerHTML = messageMarkUp
+renderingMessages()
 
       
 
@@ -86,3 +67,25 @@ chatFormEl.addEventListener('submit', function (ev) {
 })
 
 
+function renderingMessages() {
+    let messageMarkUp ='';
+    
+    messages.forEach( (message) => {
+        
+        // destrutturazione delle proprietà dell'oggetto
+        const {text, type, time} = message;
+        
+        
+        messageMarkUp += 
+        `<div class="chat-row ${type}">
+        <div class="chat-message">
+        <p>${text}</p>
+        <time>${time}</time>
+        </div>
+        </div>`
+        
+        
+    })
+    
+    chatBoxEl.innerHTML = messageMarkUp
+}
