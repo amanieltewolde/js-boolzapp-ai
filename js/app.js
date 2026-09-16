@@ -39,36 +39,50 @@ const messages = [
 ];
 
 // rendering messaggi
-messages.forEach( (message) => {
-
-    // destrutturazione delle proprietà dell'oggetto
-    const {text, type, time} = message;
-
+    let messageMarkUp ='';
     
-    const messageMarkUp = 
+    messages.forEach( (message) => {
+        
+        // destrutturazione delle proprietà dell'oggetto
+        const {text, type, time} = message;
+        
+        
+        messageMarkUp += 
         `<div class="chat-row ${type}">
-            <div class="chat-message">
-                <p>${text}</p>
-                <time>${time}</time>
-            </div>
-        </div>`;
+        <div class="chat-message">
+        <p>${text}</p>
+        <time>${time}</time>
+        </div>
+        </div>`
+        
+        
+    })
+    
+    chatBoxEl.innerHTML = messageMarkUp
 
+      
 
-chatBoxEl.innerHTML += messageMarkUp;
-});        
-
+// evento invio form(nuovo messaggio) 
 chatFormEl.addEventListener('submit', function (ev) {
     ev.preventDefault();
 
+    // lettura dato inserito nella form
     const inputChatValue = chatInputEl.value;
 
+    // evitare dati(messaggi) senza nulla
+    if(inputChatValue === '')  return;
+
+    // creazione oggetto con proprietà e i nuovi valori appena ottenuti
     const newMessage =  {
         text:inputChatValue,
         type:'sent',
         time: getCurrentDayHour() ,
     }
-    // inputChatValue.reset();
-    // chatInputEl.focus();
 
+    // aggiunta nuovo oggetto  alla storia della conversazione
+    messages.push(newMessage);
+   
     
 })
+
+
