@@ -25,7 +25,7 @@ function getCurrentDayHour() {
 }
 
 // storia conversazione 
-const messages = [
+let messages = [
     {
         text:'ciao sono Ama, come stai?',
         type:'sent',
@@ -38,17 +38,24 @@ const messages = [
     }
 ];
 
-// rendering messaggi
-renderingMessages()
+// cercare eventuli dati salvati in Local Storage 
+const localTeamData = JSON.parse(localStorage.getItem('history-messages'));
 
-      
+if(localTeamData !== null) {
+    messages = localTeamData;
+}
+
+// rendering messaggi all'avvio
+renderingMessages();
+chatBoxEl.scrollTop = chatBoxEl.scrollHeight;
+
 
 // evento invio form(nuovo messaggio) 
 chatFormEl.addEventListener('submit', function (ev) {
     ev.preventDefault();
-
+    
     // lettura dato inserito nella form
-    const inputChatValue = chatInputEl.value;
+    const inputChatValue = chatInputEl.value.trim();
 
     // evitare dati(messaggi) senza nulla
     if(inputChatValue === '')  return;
@@ -63,20 +70,21 @@ chatFormEl.addEventListener('submit', function (ev) {
     // aggiunta nuovo oggetto  alla storia della conversazione
     messages.push(newMessage);
 
-
-    renderingMessages()
-
-    // reset form 
+    // aggiornamento UI
+    renderingMessages();
+    
+    // reset form e focus sull'input
     chatFormEl.reset();
-    chatFormEl.focus();
+    chatInputEl.focus();
 
     // scorrimento della chat segue l'aggiornamento della chat
     chatBoxEl.scrollTop = chatBoxEl.scrollHeight;
-   
-    
-})
 
+    // impostare la key per salvare la conversazione aggiornata nel localStorage
+    localStorage.setItem('history-messages', JSON.stringify(messages));
+});
 
+      
 function renderingMessages() {
     let messageMarkUp ='';
     
@@ -88,14 +96,12 @@ function renderingMessages() {
         
         messageMarkUp += 
         `<div class="chat-row ${type}">
-        <div class="chat-message">
-        <p>${text}</p>
-        <time>${time}</time>
-        </div>
-        </div>`
-        
-        
-    })
+            <div class="chat-message">
+                <p>${text}</p>
+                <time>${time}</time>
+            </div>
+        </div>`;
+    });
     
-    chatBoxEl.innerHTML = messageMarkUp
+    chatBoxEl.innerHTML = messageMarkUp;
 }
