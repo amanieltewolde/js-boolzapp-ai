@@ -62,6 +62,16 @@ chatFormEl.addEventListener('submit', function (ev) {
 
     // aggiunta nuovo oggetto  alla storia della conversazione
     messages.push(newMessage);
+
+
+    renderingMessages()
+
+    // reset form 
+    chatFormEl.reset();
+    chatFormEl.focus();
+
+    // scorrimento della chat segue l'aggiornamento della chat
+    chatBoxEl.scrollTop = chatBoxEl.scrollHeight;
    
     
 })
