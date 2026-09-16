@@ -2,10 +2,27 @@ console.log('Facciamoci una chiacchera')
 // set up endpoint gemini
 const endpoint = `${geminiConfig.endpoint}?key=${geminiConfig.apiKey}`;
 
+
+
 // DOM Ref
 const chatBoxEl = document.querySelector('.chat-box');
 const chatFormEl = document.getElementById('chat-form');
-const chatInputEl = chatFormEl.querySelector('input')
+const chatInputEl = chatFormEl.querySelector('input');
+
+// set up data-ora
+const opzioni = {
+    year: '2-digit',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+} 
+
+const formatter =  new Intl.DateTimeFormat('it-IT', opzioni);
+function getCurrentDayHour() {
+    return formatter.format(new Date());
+}
 
 // storia conversazione 
 const messages = [
@@ -28,7 +45,7 @@ messages.forEach( (message) => {
     const {text, type, time} = message;
 
     
-    let messageMarkUp = 
+    const messageMarkUp = 
         `<div class="chat-row ${type}">
             <div class="chat-message">
                 <p>${text}</p>
@@ -40,3 +57,18 @@ messages.forEach( (message) => {
 chatBoxEl.innerHTML += messageMarkUp;
 });        
 
+chatFormEl.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+
+    const inputChatValue = chatInputEl.value;
+
+    const newMessage =  {
+        text:inputChatValue,
+        type:'sent',
+        time: getCurrentDayHour() ,
+    }
+    // inputChatValue.reset();
+    // chatInputEl.focus();
+
+    
+})
