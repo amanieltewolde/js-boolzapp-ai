@@ -61,16 +61,16 @@ chatFormEl.addEventListener('submit', function (ev) {
     if(inputChatValue === '')  return;
 
     // creazione oggetto con proprietà e i nuovi valori appena ottenuti
-    const newMessage =  {
-        text:inputChatValue,
-        type:'sent',
-        time: getCurrentDayHour() ,
-    }
+    // const newMessage =  {
+    //     text:inputChatValue,
+    //     type:'sent',
+    //     time: getCurrentDayHour() ,
+    // }
 
-    // aggiunta nuovo oggetto  alla storia della conversazione
-    messages.push(newMessage);
+    // // aggiunta nuovo oggetto  alla storia della conversazione
+    // messages.push(newMessage);
+    addNewmessageData(inputChatValue, 'sent');
 
-    // aggiornamento UI
     renderingMessages();
     
     // reset form e focus sull'input
@@ -104,4 +104,20 @@ function renderingMessages() {
     });
     
     chatBoxEl.innerHTML = messageMarkUp;
+}
+
+/**
+ * Aggiungere nuovo messaggio
+ * 
+ * @param {string} text  il testo del nuovo messaggio
+ * @param {string} type  il type del nuovo messaggio aggiunto: 'sent'(se inviato da noi) o 'received'(se ricevuto da API)
+ */
+function addNewmessageData(text, type) {
+       const newMessage =  {
+        text,
+        type,
+        time: getCurrentDayHour() ,
+    }
+
+    messages.push(newMessage);
 }
