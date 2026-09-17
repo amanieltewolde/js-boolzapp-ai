@@ -69,7 +69,7 @@ chatFormEl.addEventListener('submit', async function (ev) {
     chatInputEl.focus();
 
     // scorrimento della chat segue l'aggiornamento della chat
-    chatBoxEl.scrollTop = chatBoxEl.scrollHeight;
+    scrollingChat();
 
     // convertire i dati in modo da renderli interpretabili dall' API
     const formattedMessages = messages.map((message)=> {
@@ -109,7 +109,9 @@ chatFormEl.addEventListener('submit', async function (ev) {
 
     addNewmessageData(aiMessage, 'received');
 
-    renderingMessages()
+    renderingMessages();
+
+    scrollingChat();
 
     // impostare la key per salvare la conversazione aggiornata nel localStorage
     localStorage.setItem('history-messages', JSON.stringify(messages));
@@ -158,4 +160,9 @@ function addNewmessageData(text, type) {
     }
 
     messages.push(newMessage);
+}
+
+function scrollingChat() {
+        chatBoxEl.scrollTop = chatBoxEl.scrollHeight;
+
 }
