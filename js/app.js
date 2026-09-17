@@ -60,15 +60,6 @@ chatFormEl.addEventListener('submit', function (ev) {
     // evitare dati(messaggi) senza nulla
     if(inputChatValue === '')  return;
 
-    // creazione oggetto con proprietà e i nuovi valori appena ottenuti
-    // const newMessage =  {
-    //     text:inputChatValue,
-    //     type:'sent',
-    //     time: getCurrentDayHour() ,
-    // }
-
-    // // aggiunta nuovo oggetto  alla storia della conversazione
-    // messages.push(newMessage);
     addNewmessageData(inputChatValue, 'sent');
 
     renderingMessages();
@@ -80,11 +71,31 @@ chatFormEl.addEventListener('submit', function (ev) {
     // scorrimento della chat segue l'aggiornamento della chat
     chatBoxEl.scrollTop = chatBoxEl.scrollHeight;
 
+    // convertire i dati in modo da renderli interpretabili dall' API
+    const formattedMessages = messages.map((message)=> {
+        return {
+            role: message.type === 'sent' ? 'user' : 'model',
+            parts: [
+                {
+                    text: message.text,
+                }
+            ]
+        }
+    })
+    console.log(formattedMessages)
+
     // impostare la key per salvare la conversazione aggiornata nel localStorage
     localStorage.setItem('history-messages', JSON.stringify(messages));
 });
 
-      
+
+
+// ******************FUNCTIONS**************************  
+
+/**
+ * Aggiornamento UI con i messaggi attuali
+ */
+
 function renderingMessages() {
     let messageMarkUp ='';
     
