@@ -93,6 +93,7 @@ chatFormEl.addEventListener('submit', async function (ev) {
         ]
     })
 
+    // Call AJAX in versione POST
     const response = await fetch(endpoint, {
         method: 'POST',
         body: JSON.stringify({contents: formattedMessages}),
@@ -100,9 +101,14 @@ chatFormEl.addEventListener('submit', async function (ev) {
             'content-type': 'application/json',
         }
     })
+    console.log(response)
+    const data = await response.json();
+    console.log(data)
+    const aiMessage = data.candidates[0].content.parts[0].text;
+    console.log(aiMessage)
 
     // impostare la key per salvare la conversazione aggiornata nel localStorage
-    localStorage.setItem('history-messages', JSON.stringify(messages));
+    // localStorage.setItem('history-messages', JSON.stringify(messages));
 });
 
 
