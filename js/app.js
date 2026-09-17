@@ -107,8 +107,12 @@ chatFormEl.addEventListener('submit', async function (ev) {
     const aiMessage = data.candidates[0].content.parts[0].text;
     console.log(aiMessage)
 
+    addNewmessageData(aiMessage, 'received');
+
+    renderingMessages()
+
     // impostare la key per salvare la conversazione aggiornata nel localStorage
-    // localStorage.setItem('history-messages', JSON.stringify(messages));
+    localStorage.setItem('history-messages', JSON.stringify(messages));
 });
 
 
