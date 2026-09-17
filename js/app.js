@@ -8,6 +8,7 @@ const endpoint = `${geminiConfig.endpoint}?key=${geminiConfig.apiKey}`;
 const chatBoxEl = document.querySelector('.chat-box');
 const chatFormEl = document.getElementById('chat-form');
 const chatInputEl = chatFormEl.querySelector('input');
+const chatStatusEL = document.querySelector('.contact-status');
 
 // set up data-ora
 const opzioni = {
@@ -93,6 +94,8 @@ chatFormEl.addEventListener('submit', async function (ev) {
         ]
     })
 
+    chatStatusEL.innerText = 'Sta scrivendo...'
+
     // Call AJAX in versione POST
     const response = await fetch(endpoint, {
         method: 'POST',
@@ -101,17 +104,18 @@ chatFormEl.addEventListener('submit', async function (ev) {
             'content-type': 'application/json',
         }
     })
-    console.log(response)
+
     const data = await response.json();
-    console.log(data)
+
     const aiMessage = data.candidates[0].content.parts[0].text;
-    console.log(aiMessage)
 
     addNewmessageData(aiMessage, 'received');
 
     renderingMessages();
 
     scrollingChat();
+
+    chatStatusEL.innerText = 'Online 🟢';
 
     // impostare la key per salvare la conversazione aggiornata nel localStorage
     localStorage.setItem('history-messages', JSON.stringify(messages));
