@@ -82,7 +82,16 @@ chatFormEl.addEventListener('submit', function (ev) {
             ]
         }
     })
-    console.log(formattedMessages)
+    
+    // Aggiunta del system prompt nella conversazione
+    formattedMessages.unshift({
+        role: 'user',
+        parts: [
+            {
+                text: geminiConfig.systemPrompt,
+            }
+        ]
+    })
 
     // impostare la key per salvare la conversazione aggiornata nel localStorage
     localStorage.setItem('history-messages', JSON.stringify(messages));
