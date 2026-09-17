@@ -51,7 +51,7 @@ chatBoxEl.scrollTop = chatBoxEl.scrollHeight;
 
 
 // evento invio form(nuovo messaggio) 
-chatFormEl.addEventListener('submit', function (ev) {
+chatFormEl.addEventListener('submit', async function (ev) {
     ev.preventDefault();
     
     // lettura dato inserito nella form
@@ -91,6 +91,14 @@ chatFormEl.addEventListener('submit', function (ev) {
                 text: geminiConfig.systemPrompt,
             }
         ]
+    })
+
+    const response = await fetch(endpoint, {
+        method: 'POST',
+        body: JSON.stringify({contents: formattedMessages}),
+        headers: {
+            'content-type': 'application/json',
+        }
     })
 
     // impostare la key per salvare la conversazione aggiornata nel localStorage
